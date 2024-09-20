@@ -1,0 +1,221 @@
+<!DOCTYPE html> 
+
+<html lang="en"> 
+
+<head> 
+
+    <meta charset="UTF-8"> 
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+
+    <title>Countdown Timer</title> 
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"> 
+
+    <style> 
+
+        body { 
+
+            font-family: 'Roboto', sans-serif; 
+
+            background: linear-gradient(135deg, #74ebd5, #ACB6E5); 
+
+            display: flex; 
+
+            flex-direction: column; 
+
+            align-items: center; 
+
+            justify-content: center; 
+
+            height: 100vh; 
+
+            margin: 0; 
+
+            color: #333; 
+
+        } 
+
+        .container { 
+
+            text-align: center; 
+
+            background: rgba(255, 255, 255, 0.8); 
+
+            border-radius: 12px; 
+
+            padding: 20px; 
+
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+
+        } 
+
+        h1 { 
+
+            font-size: 2em; 
+
+            margin-bottom: 20px; 
+
+        } 
+
+        .date-info { 
+
+            margin-bottom: 20px; 
+
+            font-size: 1.2em; 
+
+            color: #555; 
+
+        } 
+
+        #timer { 
+
+            background: #ffffff; 
+
+            border-radius: 12px; 
+
+            padding: 20px; 
+
+            font-size: 2.5em; 
+
+            color: #333; 
+
+            display: inline-block; 
+
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+
+            transition: transform 0.3s ease; 
+
+        } 
+
+        #timer:hover { 
+
+            transform: scale(1.05); 
+
+        } 
+
+        #timer span { 
+
+            display: inline-block; 
+
+            min-width: 80px; 
+
+        } 
+
+        #timer span#hours { 
+
+            color: #e74c3c; /* Red color for hours */ 
+
+        } 
+
+        #timer span#minutes { 
+
+            color: #3498db; /* Blue color for minutes */ 
+
+        } 
+
+        #timer span#seconds { 
+
+            color: #2ecc71; /* Green color for seconds */ 
+
+        } 
+
+        .icon { 
+
+            font-size: 1.2em; 
+
+            vertical-align: middle; 
+
+            margin-right: 5px; 
+
+        } 
+
+    </style> 
+
+</head> 
+
+<body> 
+
+    <div class="container"> 
+
+        <h1>Countdown Timer</h1> 
+
+        <div class="date-info"> 
+
+            <p><span class="icon">📅</span>Current Date: <span id="current-date"></span></p> 
+
+            <p><span class="icon">⏳</span>Countdown To: <span id="countdown-date"></span></p> 
+
+        </div> 
+
+        <div id="timer"> 
+
+            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span> 
+
+        </div> 
+
+    </div> 
+
+ 
+
+    <script> 
+
+        function formatDate(date) { 
+
+            const day = String(date.getDate()).padStart(2, '0'); 
+
+            const month = String(date.getMonth() + 1).padStart(2, '0'); 
+
+            const year = date.getFullYear(); 
+
+            return `${year}-${month}-${day}`; 
+
+        } 
+
+ 
+
+        function updateCountdown() { 
+
+            const now = new Date(); 
+
+            const nextDay = new Date(); 
+
+            nextDay.setHours(24, 0, 0, 0); 
+
+ 
+
+            const timeDifference = nextDay - now; 
+
+            const hours = Math.floor(timeDifference / (1000 * 60 * 60)); 
+
+            const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60)); 
+
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000); 
+
+ 
+
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0'); 
+
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0'); 
+
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0'); 
+
+ 
+
+            document.getElementById('current-date').textContent = formatDate(now); 
+
+            document.getElementById('countdown-date').textContent = formatDate(nextDay); 
+
+        } 
+
+ 
+
+        setInterval(updateCountdown, 1000); 
+
+        updateCountdown(); // Initial call to populate timer immediately 
+
+    </script> 
+
+</body> 
+
+</html> 
